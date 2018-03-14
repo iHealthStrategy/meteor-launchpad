@@ -9,17 +9,21 @@ if [ "$DEV_BUILD" = true ]; then
   curl -v https://install.meteor.com/ | sh
 else
   # download installer script
-  curl -v https://install.meteor.com -o /tmp/install_meteor.sh
+  #curl -v https://install.meteor.com -o /tmp/install_meteor.sh
 
   # read in the release version in the app
-  METEOR_VERSION=$(head $APP_SOURCE_DIR/.meteor/release | cut -d "@" -f 2)
+  #METEOR_VERSION=$(head $APP_SOURCE_DIR/.meteor/release | cut -d "@" -f 2)
 
   # set the release version in the install script
-  sed -i.bak "s/RELEASE=.*/RELEASE=\"$METEOR_VERSION\"/g" /tmp/install_meteor.sh
+  #sed -i.bak "s/RELEASE=.*/RELEASE=\"$METEOR_VERSION\"/g" /tmp/install_meteor.sh
 
   # replace tar command with bsdtar in the install script (bsdtar -xf "$TARBALL_FILE" -C "$INSTALL_TMPDIR")
   # https://github.com/jshimko/meteor-launchpad/issues/39
-  sed -i.bak "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /tmp/install_meteor.sh
+  #sed -i.bak "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /tmp/install_meteor.sh
+
+  mkdir tmp/.meteor-install-tmp
+  curl --progress-bar --insecure  https://meteorinstall-4168.kxcdn.com/packages-bootstrap/1.5.1/meteor-bootstrap-os.linux.x86_64.tar.gz | tar -xzf - -C "tmp/.meteor-install-tmp" -o
+
 
   # install
   printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
