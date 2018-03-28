@@ -1,0 +1,19 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 1
+pipeline:
+  build_step1:
+    image: plugins/docker
+    username: ihealth
+    password: iHealthStrategy2018
+    registry: harbor.ihealthcn.com
+    repo: harbor.ihealthcn.com/pigeon/pigeon
+    mirror: 'http://f95ba185.m.daocloud.io'
+    tag:
+      - '${DRONE_BUILD_NUMBER}'
+      - latest
+    dockerfile: Dockerfile
+    when:
+      branch: master
+      event: push
