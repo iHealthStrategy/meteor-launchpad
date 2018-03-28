@@ -8,7 +8,7 @@ pipeline:
     username: ihealth
     password: iHealthStrategy2018
     registry: harbor.ihealthcn.com
-    repo: harbor.ihealthcn.com/pigeon/pigeon
+    repo: harbor.ihealthcn.com/meteor-launchpad/meteor-launchpad
     mirror: 'http://f95ba185.m.daocloud.io'
     tag:
       - '${DRONE_BUILD_NUMBER}'
