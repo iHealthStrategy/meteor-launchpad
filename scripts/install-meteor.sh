@@ -20,7 +20,8 @@ else
   sed -i.bak "s/RELEASE=.*/RELEASE=\"$METEOR_VERSION\"/g" /tmp/install_meteor.sh
 
   # use alternate url
-  sed -i.bak "s/static-meteor.netdna-ssl.com/meteorinstall-4168.kxcdn.com/g" /tmp/install_meteor.sh
+  sed -i.bak "s/https/http/g" /tmp/install_meteor.sh
+  sed -i.bak "s/static-meteor.netdna-ssl.com/120.92.91.149:7080/g" /tmp/install_meteor.sh
 
   # replace tar command with bsdtar in the install script (bsdtar -xf "$TARBALL_FILE" -C "$INSTALL_TMPDIR")
   # https://github.com/jshimko/meteor-launchpad/issues/39
