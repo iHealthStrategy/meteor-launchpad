@@ -49,16 +49,21 @@ ONBUILD ENV TOOL_NODE_FLAGS $TOOL_NODE_FLAGS
 # optionally custom apt dependencies at app build time
 ONBUILD RUN if [ "$APT_GET_INSTALL" ]; then apt-get update && apt-get install -y $APT_GET_INSTALL; fi
 
-# copy the app to the container
-ONBUILD COPY . $APP_SOURCE_DIR
 
-# install all dependencies, build app, clean up
+# install all dependencies
 ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
   $BUILD_SCRIPTS_DIR/install-node.sh && \
   $BUILD_SCRIPTS_DIR/install-phantom.sh && \
   $BUILD_SCRIPTS_DIR/install-graphicsmagick.sh && \
-  $BUILD_SCRIPTS_DIR/install-mongo.sh && \
+  $BUILD_SCRIPTS_DIR/install-mongo.sh
+
+
+# copy the app to the container
+ONBUILD COPY . $APP_SOURCE_DIR
+
+# build app, clean up
+ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-meteor.sh && \
   $BUILD_SCRIPTS_DIR/build-meteor.sh && \
   $BUILD_SCRIPTS_DIR/post-build-cleanup.sh
